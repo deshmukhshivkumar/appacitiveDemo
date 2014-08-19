@@ -1,0 +1,56 @@
+﻿@model List<Appacitive_demo.Models.Hotel>
+
+@{
+    ViewBag.Title = "Listing";
+}
+
+<h2>Hotel Listing</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tr>
+            <th class="col-md-3">
+                Hotel Name
+            </th>
+            <th class="col-md-3 text-center">
+                Star Rating
+            </th>
+            <th>
+                City
+            </th>
+        </tr>
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.StarRating)
+            </td>
+            <td>
+                @if (item.Address.City != null)
+                {
+                  <p>  @Html.DisplayFor(modelItem => item.Address.AddressLine) , @Html.DisplayFor(modelItem => item.Address.City.Name)</p>
+                }
+                else
+                {
+  <p> - </p>
+                }
+            </td>
+        </tr>
+
+        }
+    </table>
+
+}
+
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

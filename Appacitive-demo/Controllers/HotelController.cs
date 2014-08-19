@@ -15,9 +15,37 @@ namespace Appacitive_demo.Controllers
     {
         //
         // GET: /Hotel/
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            try
+            {
+                AppacitiveRepository.HotelRepository hotelRepository = new HotelRepository();
+                var modelHotelList = new List<Hotel>();
+                var hotelList = await hotelRepository.GetHotels();
+                foreach (var hotel in hotelList)
+                {
+                    modelHotelList.Add(new Hotel()
+                    {
+                        Name = hotel.Name,
+                        StarRating = hotel.StarRating,
+                        Address = hotel.Address == null ? new Address() : new Address()
+                        {
+                            AddressLine = hotel.Address.AddressLine ?? "",
+                            Id = hotel.Address.Id,
+                            City = new City()
+                            {
+                                Name = hotel.Address.City.Name ?? "",
+                                Id = hotel.Address.City.Id
+                            }
+                        }
+                    });
+                }
+                return View(modelHotelList);
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
 
         //
