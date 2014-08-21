@@ -10,7 +10,8 @@ namespace Appacitive_demo.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int StarRating { get; set; }
-        public Address Address;
+        public Address Address { get; set;}
+    
     }
 
     public class Address
@@ -18,8 +19,7 @@ namespace Appacitive_demo.Models
         public string AddressLine { get; set; }
         public List<string> GeoCode { get; set; }
         public long Id { get; set; }
-        public City City;
-
+        public City City { get; set; }
     }
 
     public class City
